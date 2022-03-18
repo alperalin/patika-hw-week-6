@@ -14,9 +14,11 @@ function useCookie(key: string, initialValue: string): [string, any, any] {
 				c = c.substring(1);
 			}
 			if (c.indexOf(name) === 0) {
+				// Ayni isimli cookie bulunduysa degerini don.
 				return c.substring(name.length, c.length);
 			}
 		}
+		// Ayni isimli cookie bulunamadiysa baslangic degerini don.
 		return initialValue;
 	}, [key, initialValue]);
 
@@ -46,12 +48,15 @@ function useCookie(key: string, initialValue: string): [string, any, any] {
 		setCookieState('');
 	};
 
+	// Ilk cagirmada cookie okunuyor.
 	useEffect(() => {
 		setCookieState(readCookie());
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
+	// Cookie State, setCookie ve deleteCookie methodlari donuluyor
 	return [cookieState, setCookie, deleteCookie];
 }
 
+// Hook export ediliyor
 export default useCookie;
